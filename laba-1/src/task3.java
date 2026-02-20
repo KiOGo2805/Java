@@ -1,6 +1,5 @@
-// Файл task3.java
 void main() {
-    int sides = 4; // Міняємо це значення для перевірки (3, 4, 5 або 6)
+    int sides = 4;
 
     String shape = switch (sides) {
         case 3 -> "Трикутник";
