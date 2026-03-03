@@ -25,5 +25,5 @@ void main() {
 
     System.out.println("Масив 1: " + Arrays.toString(array1));
     System.out.println("Масив 2: " + Arrays.toString(array2));
-    System.out.println("Результат злиття: " + Arrays.toString(result));
+    System.out.println("Результат: " + Arrays.toString(result));
 }

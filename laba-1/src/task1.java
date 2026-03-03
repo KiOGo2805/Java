@@ -5,5 +5,5 @@ void main() {
 
     maxByte = (byte) (maxByte + 1);
 
-    System.out.println("Стало після +1: " + maxByte);
+    System.out.println("Стало: " + maxByte);
 }
