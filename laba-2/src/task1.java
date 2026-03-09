@@ -10,7 +10,7 @@ void main() {
     for (double tempF : testTemperatures) {
         try {
             double tempC = convertToCelsius(tempF);
-            System.out.printf("%.1f°F дорівнює %.1f°C\n", tempF, tempC);
+            System.out.println(tempF + "°F дорівнює " + tempC + "°C");
         } catch (OutOfRangeException e) {
             System.out.println("ПОМИЛКА для " + tempF + "°F: " + e.getMessage());
         }
@@ -21,5 +21,7 @@ double convertToCelsius(double fahrenheit) throws OutOfRangeException {
     if (fahrenheit < -100.0 || fahrenheit > 200.0) {
         throw new OutOfRangeException("Температура виходить за межі діапазону людської діяльності!");
     }
-    return (fahrenheit - 32) * 5 / 9;
+    double exactCelsius = (fahrenheit - 32) * 5 / 9;
+
+    return Math.round(exactCelsius * 10.0) / 10.0;
 }
