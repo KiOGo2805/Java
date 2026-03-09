@@ -24,7 +24,7 @@ static class CollectionUtils {
 
 void main() {
     List<String> words = new ArrayList<>(List.of(
-            "яблуко", "банан", "яблуко", "апельсин", "банан", "яблуко", "ківи"
+            "яблуко", "банан", "яблуко", "апельсин", "банан", "яблуко", "ківі"
     ));
 
     System.out.println("Початковий список: " + words);
