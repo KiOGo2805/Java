@@ -3,7 +3,7 @@ static class Box<T> {
 
     public void put(T item) {
         if (this.item != null) {
-            System.out.println("Коробка вже зайнята! Спочатку дістаньте попередній предмет.");
+            System.out.println("Коробка вже зайнята.");
         } else {
             this.item = item;
             System.out.println("У коробку поклали: " + item);
@@ -12,7 +12,7 @@ static class Box<T> {
 
     public void take() {
         if (this.item == null) {
-            System.out.println("Коробка порожня! Нічого діставати.");
+            System.out.println("Коробка порожня.");
         } else {
             T retrievedItem = this.item;
             this.item = null;
