@@ -5,10 +5,10 @@ static class StringProcessor {
 
     static Optional<String> findString(List<String> strings) {
         return strings.stream()
-                .filter(s -> s.startsWith("X")) // 2. Залишаємо тільки ті, що починаються на "X"
-                .filter(s -> s.length() > 5)    // 3. Залишаємо ті, що довші за 5 символів
-                .findFirst()                    // 4. Беремо перший-ліпший, який пройшов фільтри
-                .or(() -> Optional.of("Default")); // 5. Якщо нічого не пройшло, пакуємо "Default"
+                .filter(s -> s.startsWith("X"))
+                .filter(s -> s.length() > 5)
+                .findFirst()
+                .or(() -> Optional.of("Default"));
     }
 }
 

@@ -7,8 +7,8 @@ static class FriendAnalyzer {
     static List<String> getUFNU(List<Person> people) {
         return people.stream()
                 .flatMap(person -> person.friends().stream())
-                .distinct()
                 .map(friend -> friend.name().toUpperCase())
+                .distinct()
                 .toList();
     }
 }
