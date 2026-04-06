@@ -5,7 +5,6 @@ import java.sql.*;
 public class ComponentDao {
     private final Connection conn = Database.getConnection();
 
-    // CREATE
     public void create(String name, double price, int categoryId) throws SQLException {
         String sql = "INSERT INTO components (name, price, category_id) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -16,7 +15,6 @@ public class ComponentDao {
         }
     }
 
-    // READ (Пошук по імені)
     public void searchByName(String keyword) throws SQLException {
         String sql = "SELECT * FROM components WHERE name LIKE ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -24,12 +22,12 @@ public class ComponentDao {
             ResultSet rs = stmt.executeQuery();
             System.out.println("Результати пошуку:");
             while (rs.next()) {
-                System.out.println("- " + rs.getString("name") + " ($" + rs.getDouble("price") + ")");
+                System.out.println("- " + rs.getString("name") + " ($" +
+                        rs.getDouble("price") + ")");
             }
         }
     }
 
-    // UPDATE
     public void updatePrice(int id, double newPrice) throws SQLException {
         String sql = "UPDATE components SET price = ? WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -39,7 +37,6 @@ public class ComponentDao {
         }
     }
 
-    // DELETE
     public void delete(int id) throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM components WHERE id = ?")) {
             stmt.setInt(1, id);
@@ -47,12 +44,11 @@ public class ComponentDao {
         }
     }
 
-    // Метадані (Завдання 9)
     public void printMetadata() throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM components LIMIT 1");
              ResultSet rs = stmt.executeQuery()) {
             ResultSetMetaData meta = rs.getMetaData();
-            System.out.println("\n📊 Метадані таблиці components:");
+            System.out.println("\nМетадані таблиці components:");
             for (int i = 1; i <= meta.getColumnCount(); i++) {
                 System.out.println(meta.getColumnName(i) + " (" + meta.getColumnTypeName(i) + ")");
             }
