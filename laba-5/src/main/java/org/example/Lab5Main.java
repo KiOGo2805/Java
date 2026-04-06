@@ -40,6 +40,7 @@ public class Lab5Main {
             System.out.println("Базу очищено!");
 
         } catch (Exception e) {
-            System.err.println("Помилка: " + e.getMessage());        }
+            System.err.println("Помилка: " + e.getMessage());
+        }
     }
 }
