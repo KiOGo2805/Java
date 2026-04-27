@@ -38,7 +38,6 @@ public class Lab5Main {
             Database.getConnection().createStatement().executeUpdate("ALTER TABLE categories AUTO_INCREMENT = 1");
             Database.getConnection().createStatement().executeUpdate("ALTER TABLE users AUTO_INCREMENT = 1");
             System.out.println("Базу очищено!");
-
         } catch (Exception e) {
             System.err.println("Помилка: " + e.getMessage());
         }

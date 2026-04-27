@@ -55,7 +55,7 @@ public class UserDao {
     }
 
     public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM users WHERE id = ?";
+        String sql = "  DELETE FROM users WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
