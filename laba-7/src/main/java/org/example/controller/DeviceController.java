@@ -1,49 +1,49 @@
 package org.example.controller;
 
-import org.example.model.Battery;
-import org.example.service.BatteryService;
+import org.example.model.Device;
+import org.example.service.DeviceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/batteries")
-public class BatteryController {
+@RequestMapping("/api/devices")
+public class DeviceController {
 
-    private final BatteryService service;
+    private final DeviceService service;
 
-    public BatteryController(BatteryService service) {
+    public DeviceController(DeviceService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Battery> getAll() {
-        return service.getAllBatteries();
+    public List<Device> getAll() {
+        return service.getAllDevices();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Battery> getById(@PathVariable Long id) {
-        return service.getBatteryById(id)
+    public ResponseEntity<Device> getById(@PathVariable Long id) {
+        return service.getDeviceById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Battery create(@RequestBody Battery battery) {
-        return service.createBattery(battery);
+    public Device create(@RequestBody Device device) {
+        return service.createDevice(device);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Battery> update(@PathVariable Long id, @RequestBody Battery battery) {
-        return service.updateBattery(id, battery)
+    public ResponseEntity<Device> update(@PathVariable Long id, @RequestBody Device device) {
+        return service.updateDevice(id, device)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (service.deleteBattery(id)) {
+        if (service.deleteDevice(id)) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

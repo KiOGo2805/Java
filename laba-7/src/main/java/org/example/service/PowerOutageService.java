@@ -1,0 +1,50 @@
+package org.example.service;
+
+import org.example.model.PowerOutage;
+import org.example.repository.PowerOutageRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PowerOutageService {
+
+    private final PowerOutageRepository repository;
+
+    public PowerOutageService(PowerOutageRepository repository) {
+        this.repository = repository;
+    }
+
+    public List<PowerOutage> getAllOutages() {
+        return repository.findAll();
+    }
+
+    public Optional<PowerOutage> getOutageById(Long id) {
+        return repository.findById(id);
+    }
+
+    public PowerOutage createOutage(PowerOutage outage) {
+        if (outage.getStartTime() == null || outage.getStartTime().isEmpty() ||
+                outage.getEndTime() == null || outage.getEndTime().isEmpty()) {
+            throw new IllegalArgumentException("Час початку та завершення відключення обов'язкові!");
+        }
+        return repository.save(outage);
+    }
+
+    public Optional<PowerOutage> updateOutage(Long id, PowerOutage updatedData) {
+        return repository.findById(id).map(existing -> {
+            existing.setStartTime(updatedData.getStartTime());
+            existing.setEndTime(updatedData.getEndTime());
+            return repository.save(existing);
+        });
+    }
+
+    public boolean deleteOutage(Long id) {
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+}

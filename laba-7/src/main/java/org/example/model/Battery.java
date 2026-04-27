@@ -16,7 +16,6 @@ public class Battery {
         this.chemistry = chemistry;
     }
 
-    // Getters та Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
