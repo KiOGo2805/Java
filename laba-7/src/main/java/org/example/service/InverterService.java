@@ -25,22 +25,19 @@ public class InverterService {
     }
 
     public Inverter createInverter(Inverter inverter) {
-        if (inverter.getMaxLoadWattage() <= 0) {
-            throw new IllegalArgumentException("Потужність інвертора має бути більшою за 0 Вт!");
-        }
         return repository.save(inverter);
     }
 
     public Optional<Inverter> updateInverter(Long id, Inverter updatedData) {
         return repository.findById(id).map(existing -> {
-            existing.setBrand(updatedData.getBrand());
+            existing.setManufacturer(updatedData.getManufacturer());
             existing.setMaxLoadWattage(updatedData.getMaxLoadWattage());
             return repository.save(existing);
         });
     }
 
     public boolean deleteInverter(Long id) {
-        if (repository.findById(id).isPresent()) {
+        if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
         }

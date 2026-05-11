@@ -1,8 +1,22 @@
 package org.example.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "devices")
 public class Device {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name", nullable = false)
+    @NotBlank(message = "Назва пристрою не може бути порожньою")
     private String name;
+
+    @Column(name = "power_draw_wattage", nullable = false)
+    @Min(value = 1, message = "Споживання має бути більше 0")
     private int powerDrawWattage;
 
     public Device() {}
@@ -12,6 +26,7 @@ public class Device {
         this.name = name;
         this.powerDrawWattage = powerDrawWattage;
     }
+
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

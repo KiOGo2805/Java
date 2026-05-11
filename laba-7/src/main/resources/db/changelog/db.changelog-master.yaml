@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/01-create-batteries.xml
+  - include:
+      file: db/changelog/02-create-inverters.xml
+  - include:
+      file: db/changelog/03-create-devices.xml
+  - include:
+      file: db/changelog/04-create-outages.xml
+  - include:
+      file: db/changelog/05-create-consumption-logs.xml

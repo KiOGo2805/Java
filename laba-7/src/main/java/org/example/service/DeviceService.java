@@ -25,9 +25,6 @@ public class DeviceService {
     }
 
     public Device createDevice(Device device) {
-        if (device.getPowerDrawWattage() < 0) {
-            throw new IllegalArgumentException("Споживання пристрою не може бути меншим за 0 Вт!");
-        }
         return repository.save(device);
     }
 
@@ -40,7 +37,7 @@ public class DeviceService {
     }
 
     public boolean deleteDevice(Long id) {
-        if (repository.findById(id).isPresent()) {
+        if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
         }

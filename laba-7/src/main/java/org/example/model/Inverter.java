@@ -1,24 +1,38 @@
 package org.example.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "inverters")
 public class Inverter {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String brand;
+
+    @Column(name = "manufacturer", nullable = false)
+    @NotBlank(message = "Виробник не може бути порожнім")
+    private String manufacturer;
+
+    @Column(name = "max_load_wattage", nullable = false)
+    @Min(value = 1, message = "Потужність має бути більше 0")
     private int maxLoadWattage;
 
-    public Inverter() {}
-
-    public Inverter(Long id, String brand, int maxLoadWattage) {
-        this.id = id;
-        this.brand = brand;
-        this.maxLoadWattage = maxLoadWattage;
+    public Inverter() {
     }
 
-    // Getters та Setters
+    public Inverter(Long id, String manufacturer, int maxPowerW) {
+        this.id = id;
+        this.manufacturer = manufacturer;
+        this.maxLoadWattage = maxPowerW;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getBrand() { return brand; }
-    public void setBrand(String brand) { this.brand = brand; }
+    public String getManufacturer() { return manufacturer; }
+    public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer; }
 
     public int getMaxLoadWattage() { return maxLoadWattage; }
     public void setMaxLoadWattage(int maxLoadWattage) { this.maxLoadWattage = maxLoadWattage; }

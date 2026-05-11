@@ -1,8 +1,23 @@
 package org.example.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "consumption_logs")
 public class ConsumptionLog {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "device_id", nullable = false)
+    @NotNull(message = "ID пристрою обов'язкове")
     private Long deviceId;
+
+    @Column(name = "total_wh_consumed", nullable = false)
+    @Min(value = 0, message = "Споживання не може бути від'ємним")
     private int totalWhConsumed;
 
     public ConsumptionLog() {}
@@ -13,7 +28,7 @@ public class ConsumptionLog {
         this.totalWhConsumed = totalWhConsumed;
     }
 
-    // Getters та Setters
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

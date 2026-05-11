@@ -1,42 +1,53 @@
 package org.example.controller;
 
+import jakarta.validation.Valid;
+import org.example.dto.InverterDTO;
+import org.example.mapper.InverterMapper;
 import org.example.model.Inverter;
 import org.example.service.InverterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@RestController // Кажемо, що спілкуємось тільки через JSON
-@RequestMapping("/api/inverters") // Адреса нашого "столика"
+@RestController
+@RequestMapping("/api/inverters")
 public class InverterController {
 
-    private final InverterService service; // Рація для зв'язку з кухнею
+    private final InverterService service;
+    private final InverterMapper mapper;
 
-    public InverterController(InverterService service) {
+    public InverterController(InverterService service, InverterMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @GetMapping
-    public List<Inverter> getAll() {
-        return service.getAllInverters();
+    public List<InverterDTO> getAll() {
+        return service.getAllInverters().stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Inverter> getById(@PathVariable Long id) {
+    public ResponseEntity<InverterDTO> getById(@PathVariable Long id) {
         return service.getInverterById(id)
+                .map(mapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Inverter create(@RequestBody Inverter inverter) {
-        return service.createInverter(inverter);
+    public InverterDTO create(@Valid @RequestBody Inverter inverter) {
+        Inverter saved = service.createInverter(inverter);
+        return mapper.toDto(saved); // Віддаємо клієнту красивий DTO
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Inverter> update(@PathVariable Long id, @RequestBody Inverter inverter) {
+    public ResponseEntity<InverterDTO> update(@PathVariable Long id, @Valid @RequestBody Inverter inverter) {
         return service.updateInverter(id, inverter)
+                .map(mapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

@@ -1,0 +1,84 @@
+### 1. ЗБЕРЕЖЕННЯ В БАЗУ ДАНИХ (POST)
+# Запускай цей запит першим. Він має зберегти дані в MySQL.
+POST http://localhost:8080/api/batteries
+Content-Type: application/json
+
+{
+  "manufacturer": "EcoFlow",
+  "capacityWh": 1024,
+  "chemistry": "LiFePO4"
+}
+
+### 2. ЧИТАННЯ З БАЗИ (GET)
+# Перевіряємо, чи повернуться дані.
+GET http://localhost:8080/api/batteries
+
+### 3. ПОШУК ЗА ID (GET)
+# Шукаємо конкретну батарею з ID 1
+GET http://localhost:8080/api/batteries/1
+
+### 4. ОНОВЛЕННЯ ДАНИХ (PUT)
+# Змінюємо назву та ємність для батареї з ID 1
+PUT http://localhost:8080/api/batteries/1
+Content-Type: application/json
+
+{
+  "manufacturer": "EcoFlow Delta PRO",
+  "capacityWh": 3600,
+  "chemistry": "LFP"
+}
+
+### 5. ВИДАЛЕННЯ З БАЗИ (DELETE)
+# Видаляємо батарею з ID 1
+DELETE http://localhost:8080/api/batteries/1
+
+### ТЕСТ ВАЛІДАЦІЇ (Має повернути помилку 400 Bad Request)
+POST http://localhost:8080/api/batteries
+Content-Type: application/json
+
+{
+  "manufacturer": "",
+  "capacityWh": -500,
+  "chemistry": "LiFePO4"
+}
+
+### ТЕСТ JDBC TEMPLATE: Знайти потужні батареї (більше 1000 Wh)
+GET http://localhost:8080/api/batteries/filter?min=1000
+
+
+
+
+
+### 1. Створити новий інвертор (має повернути 200 OK і зберегти в базу)
+POST http://localhost:8080/api/inverters
+Content-Type: application/json
+
+{
+  "manufacturer": "Victron Energy",
+  "maxLoadWattage": 5000
+}
+
+### 2. Отримати всі інвертори (має повернути список з твоїм новим інвертором)
+GET http://localhost:8080/api/inverters
+
+### 3. Перевірка валідації (має повернути 400 Bad Request)
+# Виробник порожній, а потужність від'ємна — Spring має це заблокувати
+POST http://localhost:8080/api/inverters
+Content-Type: application/json
+
+{
+  "manufacturer": "",
+  "maxLoadWattage": -100
+}
+
+### 4. Оновити інвертор з ID = 1
+PUT http://localhost:8080/api/inverters/1
+Content-Type: application/json
+
+{
+  "manufacturer": "Deye",
+  "maxLoadWattage": 8000
+}
+
+### 5. Видалити інвертор з ID = 1
+DELETE http://localhost:8080/api/inverters/1

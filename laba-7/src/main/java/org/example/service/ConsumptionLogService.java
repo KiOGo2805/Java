@@ -25,9 +25,6 @@ public class ConsumptionLogService {
     }
 
     public ConsumptionLog createLog(ConsumptionLog log) {
-        if (log.getTotalWhConsumed() <= 0) {
-            throw new IllegalArgumentException("Кількість спожитої енергії повинна бути більшою за 0!");
-        }
         return repository.save(log);
     }
 
@@ -40,7 +37,7 @@ public class ConsumptionLogService {
     }
 
     public boolean deleteLog(Long id) {
-        if (repository.findById(id).isPresent()) {
+        if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
         }

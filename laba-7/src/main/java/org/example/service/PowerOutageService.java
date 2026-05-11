@@ -25,10 +25,6 @@ public class PowerOutageService {
     }
 
     public PowerOutage createOutage(PowerOutage outage) {
-        if (outage.getStartTime() == null || outage.getStartTime().isEmpty() ||
-                outage.getEndTime() == null || outage.getEndTime().isEmpty()) {
-            throw new IllegalArgumentException("Час початку та завершення відключення обов'язкові!");
-        }
         return repository.save(outage);
     }
 
@@ -41,7 +37,7 @@ public class PowerOutageService {
     }
 
     public boolean deleteOutage(Long id) {
-        if (repository.findById(id).isPresent()) {
+        if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
         }

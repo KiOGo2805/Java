@@ -1,12 +1,30 @@
 package org.example.model;
 
-public class Battery {
-    private Long id;
-    private String manufacturer;
-    private int capacityWh;
-    private String chemistry;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
-    // Обов'язковий порожній конструктор для Spring
+@Entity
+@Table(name = "batteries")
+public class Battery {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "manufacturer", nullable = false)
+    @NotBlank(message = "Виробник не може бути порожнім")
+    private String manufacturer;
+
+    @Column(name = "capacity_wh")
+    @Min(value = 1, message = "Ємність повинна бути більше 0")
+    private int capacityWh;
+
+    private String chemistry;
     public Battery() {}
 
     public Battery(Long id, String manufacturer, int capacityWh, String chemistry) {

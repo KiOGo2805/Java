@@ -12,7 +12,6 @@ public class BatteryService {
 
     private final BatteryRepository repository;
 
-    // Ми не пишемо "new BatteryRepository()". Spring сам знайде створений раніше репозиторій і передасть його сюди.
     public BatteryService(BatteryRepository repository) {
         this.repository = repository;
     }
@@ -26,23 +25,20 @@ public class BatteryService {
     }
 
     public Battery createBattery(Battery battery) {
-        if (battery.getCapacityWh() <= 0) {
-            throw new IllegalArgumentException("Ємність батареї має бути більшою за 0 Wh!");
-        }
         return repository.save(battery);
     }
 
     public Optional<Battery> updateBattery(Long id, Battery updatedData) {
-        return repository.findById(id).map(existingBattery -> {
-            existingBattery.setManufacturer(updatedData.getManufacturer());
-            existingBattery.setCapacityWh(updatedData.getCapacityWh());
-            existingBattery.setChemistry(updatedData.getChemistry());
-            return repository.save(existingBattery);
+        return repository.findById(id).map(existing -> {
+            existing.setManufacturer(updatedData.getManufacturer());
+            existing.setCapacityWh(updatedData.getCapacityWh());
+            existing.setChemistry(updatedData.getChemistry());
+            return repository.save(existing);
         });
     }
 
     public boolean deleteBattery(Long id) {
-        if (repository.findById(id).isPresent()) {
+        if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
         }

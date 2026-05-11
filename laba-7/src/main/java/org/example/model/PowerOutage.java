@@ -1,8 +1,21 @@
 package org.example.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "power_outages")
 public class PowerOutage {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "start_time", nullable = false)
+    @NotBlank(message = "Час початку відключення обов'язковий")
     private String startTime;
+
+    @Column(name = "end_time")
     private String endTime;
 
     public PowerOutage() {}
@@ -13,7 +26,7 @@ public class PowerOutage {
         this.endTime = endTime;
     }
 
-    // Getters та Setters
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
