@@ -20,8 +20,9 @@ public class BatteryService {
         return repository.findAll();
     }
 
-    public Optional<Battery> getBatteryById(Long id) {
-        return repository.findById(id);
+    public Battery getBatteryById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new org.example.exception.ResourceNotFoundException("Батарею з ID " + id + " не знайдено в базі!"));
     }
 
     public Battery createBattery(Battery battery) {

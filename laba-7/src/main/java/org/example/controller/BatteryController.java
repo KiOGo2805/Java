@@ -36,10 +36,9 @@ public class BatteryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Battery> getById(@PathVariable Long id) {
-        return service.getBatteryById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public BatteryDTO getById(@PathVariable Long id) {
+        Battery battery = service.getBatteryById(id);
+        return mapper.toDto(battery);
     }
 
     @PostMapping

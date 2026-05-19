@@ -82,3 +82,7 @@ Content-Type: application/json
 
 ### 5. Видалити інвертор з ID = 1
 DELETE http://localhost:8080/api/inverters/1
+
+
+###
+GET http://localhost:8080/api/batteries/9999

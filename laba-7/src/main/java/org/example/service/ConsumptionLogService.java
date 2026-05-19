@@ -30,7 +30,7 @@ public class ConsumptionLogService {
 
     public Optional<ConsumptionLog> updateLog(Long id, ConsumptionLog updatedData) {
         return repository.findById(id).map(existing -> {
-            existing.setDeviceId(updatedData.getDeviceId());
+            existing.setDevice(updatedData.getDevice());
             existing.setTotalWhConsumed(updatedData.getTotalWhConsumed());
             return repository.save(existing);
         });

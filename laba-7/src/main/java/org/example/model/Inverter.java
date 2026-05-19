@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "inverters")
 public class Inverter {
@@ -18,6 +21,14 @@ public class Inverter {
     @Column(name = "max_load_wattage", nullable = false)
     @Min(value = 1, message = "Потужність має бути більше 0")
     private int maxLoadWattage;
+
+    @ManyToMany
+    @JoinTable(
+            name = "inverter_battery",
+            joinColumns = @JoinColumn(name = "inverter_id"),
+            inverseJoinColumns = @JoinColumn(name = "battery_id")
+    )
+    private List<Battery> batteries = new ArrayList<>();
 
     public Inverter() {
     }
@@ -36,4 +47,7 @@ public class Inverter {
 
     public int getMaxLoadWattage() { return maxLoadWattage; }
     public void setMaxLoadWattage(int maxLoadWattage) { this.maxLoadWattage = maxLoadWattage; }
+
+    public List<Battery> getBatteries() { return batteries; }
+    public void setBatteries(List<Battery> batteries) { this.batteries = batteries; }
 }

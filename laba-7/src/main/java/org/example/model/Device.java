@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "devices")
 public class Device {
@@ -19,6 +22,13 @@ public class Device {
     @Min(value = 1, message = "Споживання має бути більше 0")
     private int powerDrawWattage;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "passport_id", referencedColumnName = "id")
+    private DevicePassport passport;
+
+    @OneToMany(mappedBy = "device")
+    private List<ConsumptionLog> logs = new ArrayList<>();
+
     public Device() {}
 
     public Device(Long id, String name, int powerDrawWattage) {
@@ -26,7 +36,6 @@ public class Device {
         this.name = name;
         this.powerDrawWattage = powerDrawWattage;
     }
-
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -36,4 +45,10 @@ public class Device {
 
     public int getPowerDrawWattage() { return powerDrawWattage; }
     public void setPowerDrawWattage(int powerDrawWattage) { this.powerDrawWattage = powerDrawWattage; }
+
+    public DevicePassport getPassport() { return passport; }
+    public void setPassport(DevicePassport passport) { this.passport = passport; }
+
+    public List<ConsumptionLog> getLogs() { return logs; }
+    public void setLogs(List<ConsumptionLog> logs) { this.logs = logs; }
 }

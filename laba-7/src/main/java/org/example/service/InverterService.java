@@ -1,5 +1,6 @@
 package org.example.service;
 
+import jakarta.transaction.Transactional;
 import org.example.model.Inverter;
 import org.example.repository.InverterRepository;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,16 @@ public class InverterService {
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public void testNPlusOne() {
+        System.out.println("--- ПОЧАТОК ТЕСТУ N+1 ---");
+        List<Inverter> inverters = repository.findAllWithBatteries();
+
+        for (Inverter inverter : inverters) {
+            System.out.println("Інвертор: " + inverter.getManufacturer() + ", батарей: " + inverter.getBatteries().size());
+        }
+        System.out.println("--- КІНЕЦЬ ТЕСТУ N+1 ---");
     }
 }

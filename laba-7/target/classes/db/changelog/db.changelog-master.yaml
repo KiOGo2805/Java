@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/04-create-outages.xml
   - include:
       file: db/changelog/05-create-consumption-logs.xml
+  - include:
+      file: db/changelog/06-add-entity-relations.xml

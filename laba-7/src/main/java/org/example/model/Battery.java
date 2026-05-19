@@ -1,13 +1,11 @@
 package org.example.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "batteries")
@@ -25,6 +23,10 @@ public class Battery {
     private int capacityWh;
 
     private String chemistry;
+
+    @ManyToMany(mappedBy = "batteries")
+    private List<Inverter> inverters = new ArrayList<>();
+
     public Battery() {}
 
     public Battery(Long id, String manufacturer, int capacityWh, String chemistry) {
@@ -45,4 +47,7 @@ public class Battery {
 
     public String getChemistry() { return chemistry; }
     public void setChemistry(String chemistry) { this.chemistry = chemistry; }
+
+    public List<Inverter> getInverters() { return inverters; }
+    public void setInverters(List<Inverter> inverters) { this.inverters = inverters; }
 }
