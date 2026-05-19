@@ -1,0 +1,4 @@
+org\example\entity\Client.class
+org\example\Neo4jLabApplication.class
+org\example\repository\ClientRepository.class
+org\example\runner\LabRunner.class

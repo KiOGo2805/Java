@@ -5,6 +5,7 @@ import org.example.dto.InverterDTO;
 import org.example.mapper.InverterMapper;
 import org.example.model.Inverter;
 import org.example.service.InverterService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,7 @@ public class InverterController {
     @PostMapping
     public InverterDTO create(@Valid @RequestBody Inverter inverter) {
         Inverter saved = service.createInverter(inverter);
-        return mapper.toDto(saved); // Віддаємо клієнту красивий DTO
+        return mapper.toDto(saved);
     }
 
     @PutMapping("/{id}")
@@ -58,5 +59,14 @@ public class InverterController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/page")
+    public Page<InverterDTO> getPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        return service.getInvertersPaginated(page, size)
+                .map(mapper::toDto);
     }
 }

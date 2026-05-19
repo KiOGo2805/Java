@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="6-1" author="Stepan">
+        <createTable tableName="device_passports">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="serial_number" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6-2" author="Stepan">
+        <addColumn tableName="devices">
+            <column name="passport_id" type="bigint">
+                <constraints unique="true"/> </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="devices" baseColumnNames="passport_id"
+                                 constraintName="fk_devices_passport"
+                                 referencedTableName="device_passports"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="6-3" author="Stepan">
+        <addForeignKeyConstraint baseTableName="consumption_logs" baseColumnNames="device_id"
+                                 constraintName="fk_logs_device"
+                                 referencedTableName="devices"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="6-4" author="Stepan">
+        <createTable tableName="inverter_battery">
+            <column name="inverter_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="battery_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="inverter_battery" columnNames="inverter_id, battery_id" constraintName="pk_inverter_battery"/>
+        <addForeignKeyConstraint baseTableName="inverter_battery" baseColumnNames="inverter_id"
+                                 constraintName="fk_ib_inverter"
+                                 referencedTableName="inverters"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="inverter_battery" baseColumnNames="battery_id"
+                                 constraintName="fk_ib_battery"
+                                 referencedTableName="batteries"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
