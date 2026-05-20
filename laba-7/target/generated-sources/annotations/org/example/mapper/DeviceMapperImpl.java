@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-05-20T17:47:25+0300",
+    date = "2026-05-20T18:20:09+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,6 +21,10 @@ public class DeviceMapperImpl implements DeviceMapper {
 
         DeviceDTO deviceDTO = new DeviceDTO();
 
+        deviceDTO.setId( device.getId() );
+        deviceDTO.setName( device.getName() );
+        deviceDTO.setPowerDrawWattage( device.getPowerDrawWattage() );
+
         return deviceDTO;
     }
 
@@ -31,6 +35,10 @@ public class DeviceMapperImpl implements DeviceMapper {
         }
 
         Device device = new Device();
+
+        device.setId( dto.getId() );
+        device.setName( dto.getName() );
+        device.setPowerDrawWattage( dto.getPowerDrawWattage() );
 
         return device;
     }

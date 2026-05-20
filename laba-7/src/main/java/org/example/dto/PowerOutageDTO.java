@@ -1,11 +1,7 @@
 package org.example.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @Schema(description = "Об'єкт передачі даних про зафіксоване вимкнення електроенергії")
 public class PowerOutageDTO {
 
@@ -17,4 +13,15 @@ public class PowerOutageDTO {
 
     @Schema(description = "Дата та час відновлення електропостачання", example = "2026-05-20T18:00:00")
     private String endTime;
+
+    public PowerOutageDTO() {}
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getStartTime() { return startTime; }
+    public void setStartTime(String startTime) { this.startTime = startTime; }
+
+    public String getEndTime() { return endTime; }
+    public void setEndTime(String endTime) { this.endTime = endTime; }
 }

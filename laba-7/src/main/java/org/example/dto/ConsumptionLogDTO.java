@@ -1,11 +1,7 @@
 package org.example.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @Schema(description = "Лог споживання енергії конкретним пристроєм")
 public class ConsumptionLogDTO {
 
@@ -17,4 +13,27 @@ public class ConsumptionLogDTO {
 
     @Schema(description = "Назва пов'язаного пристрою", example = "Холодильник Bosch")
     private String deviceName;
+
+    public ConsumptionLogDTO() {}
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getTotalWhConsumed() {
+        return totalWhConsumed;
+    }
+    public void setTotalWhConsumed(int totalWhConsumed) {
+        this.totalWhConsumed = totalWhConsumed;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 }

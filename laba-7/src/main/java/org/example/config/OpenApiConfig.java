@@ -1,5 +1,6 @@
 package org.example.config;
 
+import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
@@ -7,7 +8,7 @@ import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
+import java.util.List;
 
 @Configuration
 public class OpenApiConfig {
@@ -15,6 +16,7 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
+                .servers(List.of(new Server().url("/").description("Основний сервер")))
                 .info(new Info()
                         .title("Energy Systems Management API")
                         .version("1.0.0")
@@ -25,7 +27,6 @@ public class OpenApiConfig {
                                 .url("https://github.com/KiOGo2805"))
                         .license(new License()
                                 .name("MIT License")
-                                .url("https://opensource.org/licenses/MIT")))
-                .servers(Collections.emptyList());
+                                .url("https://opensource.org/licenses/MIT")));
     }
 }

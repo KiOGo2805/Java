@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-05-20T17:47:25+0300",
+    date = "2026-05-20T18:20:09+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,6 +21,10 @@ public class PowerOutageMapperImpl implements PowerOutageMapper {
 
         PowerOutageDTO powerOutageDTO = new PowerOutageDTO();
 
+        powerOutageDTO.setId( outage.getId() );
+        powerOutageDTO.setStartTime( outage.getStartTime() );
+        powerOutageDTO.setEndTime( outage.getEndTime() );
+
         return powerOutageDTO;
     }
 
@@ -31,6 +35,10 @@ public class PowerOutageMapperImpl implements PowerOutageMapper {
         }
 
         PowerOutage powerOutage = new PowerOutage();
+
+        powerOutage.setId( dto.getId() );
+        powerOutage.setStartTime( dto.getStartTime() );
+        powerOutage.setEndTime( dto.getEndTime() );
 
         return powerOutage;
     }
