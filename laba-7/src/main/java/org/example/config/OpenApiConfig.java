@@ -1,0 +1,31 @@
+package org.example.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.Collections;
+
+@Configuration
+public class OpenApiConfig {
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Energy Systems Management API")
+                        .version("1.0.0")
+                        .description("REST API для управління інверторами та акумуляторними батареями.")
+                        .contact(new Contact()
+                                .name("Stepan Melnyk")
+                                .email("melnyk.stepan@chnu.edu.ua")
+                                .url("https://github.com/KiOGo2805"))
+                        .license(new License()
+                                .name("MIT License")
+                                .url("https://opensource.org/licenses/MIT")))
+                .servers(Collections.emptyList());
+    }
+}

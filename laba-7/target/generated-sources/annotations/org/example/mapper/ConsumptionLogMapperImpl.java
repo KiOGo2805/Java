@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-05-19T20:37:17+0300",
+    date = "2026-05-20T17:47:25+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,9 +21,6 @@ public class ConsumptionLogMapperImpl implements ConsumptionLogMapper {
 
         ConsumptionLogDTO consumptionLogDTO = new ConsumptionLogDTO();
 
-        consumptionLogDTO.setId( log.getId() );
-        consumptionLogDTO.setTotalWhConsumed( log.getTotalWhConsumed() );
-
         return consumptionLogDTO;
     }
 
@@ -34,9 +31,6 @@ public class ConsumptionLogMapperImpl implements ConsumptionLogMapper {
         }
 
         ConsumptionLog consumptionLog = new ConsumptionLog();
-
-        consumptionLog.setId( dto.getId() );
-        consumptionLog.setTotalWhConsumed( dto.getTotalWhConsumed() );
 
         return consumptionLog;
     }

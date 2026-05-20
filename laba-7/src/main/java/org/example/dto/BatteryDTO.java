@@ -1,28 +1,28 @@
 package org.example.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.model.Battery;
 
+@Data
+@NoArgsConstructor
+@Schema(description = "Об'єкт передачі даних для батареї (DTO)")
 public class BatteryDTO {
-    private String manufacturer;
-    private int capacityWh;
-    private String chemistry;
+    @Schema(description = "Унікальний ідентифікатор інвертора", example = "1")
+    private Long id;
 
-    public BatteryDTO() {}
+    @Schema(description = "Виробник пристрою", example = "Victron Energy")
+    private String manufacturer;
+
+    @Schema(description = "Ємність у Ватах", example = "3000")
+    private int capacityWh;
 
     public static BatteryDTO manualMapFromEntity(Battery battery) {
         BatteryDTO dto = new BatteryDTO();
+        dto.setId(battery.getId());
         dto.setManufacturer(battery.getManufacturer());
         dto.setCapacityWh(battery.getCapacityWh());
-        dto.setChemistry(battery.getChemistry());
         return dto;
     }
-
-    public String getManufacturer() { return manufacturer; }
-    public void setManufacturer(String manufacturer) { this.manufacturer = manufacturer; }
-
-    public int getCapacityWh() { return capacityWh; }
-    public void setCapacityWh(int capacityWh) { this.capacityWh = capacityWh; }
-
-    public String getChemistry() {return chemistry;}
-    public void setChemistry(String chemistry) {this.chemistry = chemistry;}
 }

@@ -5,7 +5,6 @@ import org.example.model.Inverter;
 import org.example.repository.BatteryRepository;
 import org.example.repository.InverterRepository;
 import org.example.service.InverterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +23,9 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        inverterService.showNPlusOneProblem();
+        inverterService.showNPlusOneSolved();
+
         if (inverterRepository.count() == 0) {
             Inverter inv = new Inverter();
             inv.setManufacturer("Victron Energy");
@@ -42,7 +44,8 @@ public class DataSeeder implements CommandLineRunner {
             bat2.setChemistry("LiFePO4");
             batteryRepository.save(bat2);
 
-            System.out.println("--- Дані успішно засіяно (Seeding completed) ---");
+            System.out.println("--- Seeding completed ---");
+
             Long inverterId = 1L;
             Long battery1Id = 1L;
             Long battery2Id = 2L;

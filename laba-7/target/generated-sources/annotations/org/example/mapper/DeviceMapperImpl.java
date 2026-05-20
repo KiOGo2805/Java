@@ -3,12 +3,11 @@ package org.example.mapper;
 import javax.annotation.processing.Generated;
 import org.example.dto.DeviceDTO;
 import org.example.model.Device;
-import org.example.model.DevicePassport;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-05-19T20:37:17+0300",
+    date = "2026-05-20T17:47:25+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.2 (Oracle Corporation)"
 )
 @Component
@@ -22,11 +21,6 @@ public class DeviceMapperImpl implements DeviceMapper {
 
         DeviceDTO deviceDTO = new DeviceDTO();
 
-        deviceDTO.setPassportSerialNumber( devicePassportSerialNumber( device ) );
-        deviceDTO.setId( device.getId() );
-        deviceDTO.setName( device.getName() );
-        deviceDTO.setPowerDrawWattage( device.getPowerDrawWattage() );
-
         return deviceDTO;
     }
 
@@ -38,25 +32,6 @@ public class DeviceMapperImpl implements DeviceMapper {
 
         Device device = new Device();
 
-        device.setId( dto.getId() );
-        device.setName( dto.getName() );
-        device.setPowerDrawWattage( dto.getPowerDrawWattage() );
-
         return device;
-    }
-
-    private String devicePassportSerialNumber(Device device) {
-        if ( device == null ) {
-            return null;
-        }
-        DevicePassport passport = device.getPassport();
-        if ( passport == null ) {
-            return null;
-        }
-        String serialNumber = passport.getSerialNumber();
-        if ( serialNumber == null ) {
-            return null;
-        }
-        return serialNumber;
     }
 }

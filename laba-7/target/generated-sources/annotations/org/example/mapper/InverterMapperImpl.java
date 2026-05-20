@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-05-19T20:37:17+0300",
+    date = "2026-05-20T17:47:25+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,10 +21,6 @@ public class InverterMapperImpl implements InverterMapper {
 
         InverterDTO inverterDTO = new InverterDTO();
 
-        inverterDTO.setId( inverter.getId() );
-        inverterDTO.setManufacturer( inverter.getManufacturer() );
-        inverterDTO.setMaxLoadWattage( inverter.getMaxLoadWattage() );
-
         return inverterDTO;
     }
 
@@ -35,10 +31,6 @@ public class InverterMapperImpl implements InverterMapper {
         }
 
         Inverter inverter = new Inverter();
-
-        inverter.setId( dto.getId() );
-        inverter.setManufacturer( dto.getManufacturer() );
-        inverter.setMaxLoadWattage( dto.getMaxLoadWattage() );
 
         return inverter;
     }

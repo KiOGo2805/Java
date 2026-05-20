@@ -1,7 +1,10 @@
 package org.example.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.example.dto.InverterDTO;
+import org.example.dto.InverterPaginationDTO;
 import org.example.mapper.InverterMapper;
 import org.example.model.Inverter;
 import org.example.service.InverterService;
@@ -62,11 +65,21 @@ public class InverterController {
     }
 
     @GetMapping("/page")
-    public Page<InverterDTO> getPage(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
+    public InverterPaginationDTO getPage(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "5") @Min(1) @Max(100) int size
     ) {
-        return service.getInvertersPaginated(page, size)
+        // 1. Отримуємо сторінку від Spring Data
+        Page<InverterDTO> inverterPage = service.getInvertersPaginated(page, size)
                 .map(mapper::toDto);
+
+        // 2. Перепаковуємо у наш власний DTO
+        return new InverterPaginationDTO(
+                inverterPage.getContent(),       // Сам список інверторів
+                inverterPage.getNumber(),        // Поточна сторінка
+                inverterPage.getTotalPages(),    // Всього сторінок
+                inverterPage.getTotalElements(), // Всього елементів
+                inverterPage.isLast()            // Чи остання
+        );
     }
 }
