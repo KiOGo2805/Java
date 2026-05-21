@@ -48,11 +48,9 @@ public class DeviceController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/{id}")
-    public ResponseEntity<DeviceDTO> getById(@PathVariable Long id) {
-        return service.getDeviceById(id)
-                .map(mapper::toDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public DeviceDTO getById(@PathVariable Long id) {
+        Device device = service.getDeviceById(id);
+        return mapper.toDto(device);
     }
 
     @Operation(summary = "Створити новий пристрій", description = "Додає новий пристрій споживання у базу даних")
@@ -63,7 +61,8 @@ public class DeviceController {
                     content = @Content)
     })
     @PostMapping
-    public DeviceDTO create(@Valid @RequestBody Device device) {
+    public DeviceDTO create(@Valid @RequestBody DeviceDTO deviceDto) {
+        Device device = mapper.toEntity(deviceDto);
         Device saved = service.createDevice(device);
         return mapper.toDto(saved);
     }
@@ -76,8 +75,9 @@ public class DeviceController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<DeviceDTO> update(@PathVariable Long id, @Valid @RequestBody Device device) {
-        return service.updateDevice(id, device)
+    public ResponseEntity<DeviceDTO> update(@PathVariable Long id, @Valid @RequestBody DeviceDTO deviceDto) {
+        Device deviceData = mapper.toEntity(deviceDto);
+        return service.updateDevice(id, deviceData)
                 .map(mapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

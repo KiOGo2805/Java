@@ -23,9 +23,6 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        inverterService.showNPlusOneProblem();
-        inverterService.showNPlusOneSolved();
-
         if (inverterRepository.count() == 0) {
             Inverter inv = new Inverter();
             inv.setManufacturer("Victron Energy");
@@ -53,5 +50,9 @@ public class DataSeeder implements CommandLineRunner {
             inverterService.addBatteryToInverter(inverterId, battery1Id);
             inverterService.addBatteryToInverter(inverterId, battery2Id);
         }
+        System.out.println("--- N+1 Problem ---");
+        inverterService.showNPlusOneProblem();
+        System.out.println("--- N+1 Solved ---");
+        inverterService.showNPlusOneSolved();
     }
 }

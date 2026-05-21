@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.exception.ResourceNotFoundException;
 import org.example.model.ConsumptionLog;
 import org.example.repository.ConsumptionLogRepository;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,9 @@ public class ConsumptionLogService {
         return repository.findAll();
     }
 
-    public Optional<ConsumptionLog> getLogById(Long id) {
-        return repository.findById(id);
+    public ConsumptionLog getLogById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Лог споживання з ID " + id + " не знайдено в базі!"));
     }
 
     public ConsumptionLog createLog(ConsumptionLog log) {

@@ -1,6 +1,7 @@
 package org.example.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
 @Schema(description = "Об'єкт передачі даних про зафіксоване вимкнення електроенергії")
 public class PowerOutageDTO {
@@ -9,6 +10,7 @@ public class PowerOutageDTO {
     private Long id;
 
     @Schema(description = "Дата та час початку вимкнення", example = "2026-05-20T14:30:00")
+    @NotBlank(message = "Час початку відключення обов'язковий")
     private String startTime;
 
     @Schema(description = "Дата та час відновлення електропостачання", example = "2026-05-20T18:00:00")

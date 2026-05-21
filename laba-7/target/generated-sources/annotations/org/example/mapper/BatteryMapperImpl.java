@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-05-20T18:20:09+0300",
+    date = "2026-05-20T21:46:53+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.2 (Oracle Corporation)"
 )
 @Component
@@ -24,6 +24,7 @@ public class BatteryMapperImpl implements BatteryMapper {
         batteryDTO.setId( battery.getId() );
         batteryDTO.setManufacturer( battery.getManufacturer() );
         batteryDTO.setCapacityWh( battery.getCapacityWh() );
+        batteryDTO.setChemistry( battery.getChemistry() );
 
         return batteryDTO;
     }
@@ -39,6 +40,7 @@ public class BatteryMapperImpl implements BatteryMapper {
         battery.setId( dto.getId() );
         battery.setManufacturer( dto.getManufacturer() );
         battery.setCapacityWh( dto.getCapacityWh() );
+        battery.setChemistry( dto.getChemistry() );
 
         return battery;
     }

@@ -15,11 +15,9 @@ public class Battery {
     private Long id;
 
     @Column(name = "manufacturer", nullable = false)
-    @NotBlank(message = "Виробник не може бути порожнім")
     private String manufacturer;
 
     @Column(name = "capacity_wh")
-    @Min(value = 1, message = "Ємність повинна бути більше 0")
     private int capacityWh;
 
     private String chemistry;

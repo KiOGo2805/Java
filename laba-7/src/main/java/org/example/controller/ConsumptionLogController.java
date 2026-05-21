@@ -48,11 +48,9 @@ public class ConsumptionLogController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ConsumptionLogDTO> getById(@PathVariable Long id) {
-        return service.getLogById(id)
-                .map(mapper::toDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ConsumptionLogDTO getById(@PathVariable Long id) {
+        ConsumptionLog log = service.getLogById(id);
+        return mapper.toDto(log);
     }
 
     @Operation(summary = "Створити новий запис логу", description = "Додає новий запис про споживання енергії у базу даних")
@@ -63,7 +61,8 @@ public class ConsumptionLogController {
                     content = @Content)
     })
     @PostMapping
-    public ConsumptionLogDTO create(@Valid @RequestBody ConsumptionLog log) {
+    public ConsumptionLogDTO create(@Valid @RequestBody ConsumptionLogDTO logDto) {
+        ConsumptionLog log = mapper.toEntity(logDto);
         ConsumptionLog saved = service.createLog(log);
         return mapper.toDto(saved);
     }
@@ -76,8 +75,9 @@ public class ConsumptionLogController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ConsumptionLogDTO> update(@PathVariable Long id, @Valid @RequestBody ConsumptionLog log) {
-        return service.updateLog(id, log)
+    public ResponseEntity<ConsumptionLogDTO> update(@PathVariable Long id, @Valid @RequestBody ConsumptionLogDTO logDto) {
+        ConsumptionLog logData = mapper.toEntity(logDto);
+        return service.updateLog(id, logData)
                 .map(mapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

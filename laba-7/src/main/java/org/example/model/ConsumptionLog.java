@@ -11,7 +11,6 @@ public class ConsumptionLog {
     private Long id;
 
     @Column(name = "total_wh_consumed", nullable = false)
-    @Min(value = 0, message = "Споживання не може бути від'ємним")
     private int totalWhConsumed;
 
     @ManyToOne(fetch = FetchType.LAZY)

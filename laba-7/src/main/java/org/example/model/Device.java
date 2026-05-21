@@ -15,11 +15,9 @@ public class Device {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @NotBlank(message = "Назва пристрою не може бути порожньою")
     private String name;
 
     @Column(name = "power_draw_wattage", nullable = false)
-    @Min(value = 1, message = "Споживання має бути більше 0")
     private int powerDrawWattage;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +29,9 @@ public class InverterService {
         return inverterRepository.findAll();
     }
 
-    public Optional<Inverter> getInverterById(Long id) {
-        return inverterRepository.findById(id);
+    public Inverter getInverterById(Long id) {
+        return inverterRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Інвертор з ID " + id + " не знайдено в базі!"));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -56,10 +58,10 @@ public class InverterService {
     @Transactional
     public void addBatteryToInverter(Long inverterId, Long batteryId) {
         Inverter inverter = inverterRepository.findById(inverterId)
-                .orElseThrow(() -> new RuntimeException("Інвертор не знайдено"));
+                .orElseThrow(() -> new ResourceNotFoundException("Інвертор з ID " + inverterId + " не знайдено в базі!"));
 
         Battery battery = batteryRepository.findById(batteryId)
-                .orElseThrow(() -> new RuntimeException("Батарею не знайдено"));
+                .orElseThrow(() -> new ResourceNotFoundException("Батарею з ID " + batteryId + " не знайдено в базі!"));
 
         inverter.getBatteries().add(battery);
         battery.getInverters().add(inverter);

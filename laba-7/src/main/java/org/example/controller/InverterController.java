@@ -52,11 +52,9 @@ public class InverterController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/{id}")
-    public ResponseEntity<InverterDTO> getById(@PathVariable Long id) {
-        return service.getInverterById(id)
-                .map(mapper::toDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public InverterDTO getById(@PathVariable Long id) {
+        Inverter inverter = service.getInverterById(id);
+        return mapper.toDto(inverter);
     }
 
     @Operation(summary = "Створити новий інвертор", description = "Додає новий пристрій у базу даних")
@@ -67,7 +65,8 @@ public class InverterController {
                     content = @Content)
     })
     @PostMapping
-    public InverterDTO create(@Valid @RequestBody Inverter inverter) {
+    public InverterDTO create(@Valid @RequestBody InverterDTO inverterDto) {
+        Inverter inverter = mapper.toEntity(inverterDto);
         Inverter saved = service.createInverter(inverter);
         return mapper.toDto(saved);
     }
@@ -79,8 +78,9 @@ public class InverterController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<InverterDTO> update(@PathVariable Long id, @Valid @RequestBody Inverter inverter) {
-        return service.updateInverter(id, inverter)
+    public ResponseEntity<InverterDTO> update(@PathVariable Long id, @Valid @RequestBody InverterDTO inverterDto) {
+        Inverter inverterData = mapper.toEntity(inverterDto);
+        return service.updateInverter(id, inverterData)
                 .map(mapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

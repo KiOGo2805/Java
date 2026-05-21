@@ -1,6 +1,7 @@
 package org.example.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 
 @Schema(description = "Лог споживання енергії конкретним пристроєм")
 public class ConsumptionLogDTO {
@@ -9,6 +10,7 @@ public class ConsumptionLogDTO {
     private Long id;
 
     @Schema(description = "Загальна спожита енергія у Ват-годинах (Wh)", example = "1200")
+    @Min(value = 0, message = "Споживання не може бути від'ємним")
     private int totalWhConsumed;
 
     @Schema(description = "Назва пов'язаного пристрою", example = "Холодильник Bosch")

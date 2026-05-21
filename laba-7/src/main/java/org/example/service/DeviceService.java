@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.exception.ResourceNotFoundException;
 import org.example.model.Device;
 import org.example.repository.DeviceRepository;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,9 @@ public class DeviceService {
         return repository.findAll();
     }
 
-    public Optional<Device> getDeviceById(Long id) {
-        return repository.findById(id);
+    public Device getDeviceById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Пристрій з ID " + id + " не знайдено в базі!"));
     }
 
     public Device createDevice(Device device) {

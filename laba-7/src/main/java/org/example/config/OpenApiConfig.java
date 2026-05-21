@@ -16,17 +16,17 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .servers(List.of(new Server().url("/").description("Основний сервер")))
                 .info(new Info()
                         .title("Energy Systems Management API")
                         .version("1.0.0")
                         .description("REST API для управління інверторами та акумуляторними батареями.")
                         .contact(new Contact()
                                 .name("Stepan Melnyk")
-                                .email("melnyk.stepan@chnu.edu.ua")
+                                .email("stepan.melnyk2007@gmail.com")
                                 .url("https://github.com/KiOGo2805"))
                         .license(new License()
                                 .name("MIT License")
-                                .url("https://opensource.org/licenses/MIT")));
+                                .url("https://opensource.org/licenses/MIT")))
+                .servers(List.of(new Server().url("/").description("Основний сервер")));
     }
 }

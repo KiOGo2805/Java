@@ -15,11 +15,9 @@ public class Inverter {
     private Long id;
 
     @Column(name = "manufacturer", nullable = false)
-    @NotBlank(message = "Виробник не може бути порожнім")
     private String manufacturer;
 
     @Column(name = "max_load_wattage", nullable = false)
-    @Min(value = 1, message = "Потужність має бути більше 0")
     private int maxLoadWattage;
 
     @ManyToMany

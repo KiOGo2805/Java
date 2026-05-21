@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.exception.ResourceNotFoundException;
 import org.example.model.PowerOutage;
 import org.example.repository.PowerOutageRepository;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,9 @@ public class PowerOutageService {
         return repository.findAll();
     }
 
-    public Optional<PowerOutage> getOutageById(Long id) {
-        return repository.findById(id);
+    public PowerOutage getOutageById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Запис про відключення з ID " + id + " не знайдено в базі!"));
     }
 
     public PowerOutage createOutage(PowerOutage outage) {

@@ -1,6 +1,8 @@
 package org.example.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Schema(description = "Об'єкт передачі даних для побутового або системного пристрою")
 public class DeviceDTO {
@@ -8,9 +10,11 @@ public class DeviceDTO {
     private Long id;
 
     @Schema(description = "Назва або модель пристрою", example = "Холодильник Bosch")
+    @NotBlank(message = "Назва пристрою не може бути порожньою")
     private String name;
 
     @Schema(description = "Споживана потужність пристрою у Ватах (W)", example = "250")
+    @Min(value = 1, message = "Споживання має бути більше 0")
     private int powerDrawWattage;
 
     @Schema(description = "Заводський або паспортний серійний номер", example = "SN-2026-99X")

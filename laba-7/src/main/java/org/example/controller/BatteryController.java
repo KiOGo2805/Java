@@ -66,7 +66,8 @@ public class BatteryController {
                     content = @Content)
     })
     @PostMapping
-    public Battery create(@Valid @RequestBody Battery battery) {
+    public Battery create(@Valid @RequestBody BatteryDTO batteryDto) {
+        Battery battery = mapper.toEntity(batteryDto);
         return service.createBattery(battery);
     }
 
@@ -78,8 +79,9 @@ public class BatteryController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Battery> update(@PathVariable Long id, @Valid @RequestBody Battery battery) {
-        return service.updateBattery(id, battery)
+    public ResponseEntity<Battery> update(@PathVariable Long id, @Valid @RequestBody BatteryDTO batteryDto) {
+        Battery batteryData = mapper.toEntity(batteryDto);
+        return service.updateBattery(id, batteryData)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

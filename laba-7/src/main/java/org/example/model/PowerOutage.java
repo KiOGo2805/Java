@@ -6,13 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "power_outages")
 public class PowerOutage {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "start_time", nullable = false)
-    @NotBlank(message = "Час початку відключення обов'язковий")
     private String startTime;
 
     @Column(name = "end_time")

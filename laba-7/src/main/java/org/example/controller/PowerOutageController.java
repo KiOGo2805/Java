@@ -48,11 +48,9 @@ public class PowerOutageController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/{id}")
-    public ResponseEntity<PowerOutageDTO> getById(@PathVariable Long id) {
-        return service.getOutageById(id)
-                .map(mapper::toDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public PowerOutageDTO getById(@PathVariable Long id) {
+        PowerOutage outage = service.getOutageById(id);
+        return mapper.toDto(outage);
     }
 
     @Operation(summary = "Зафіксувати нове відключення", description = "Створює новий запис про відключення електроенергії")
@@ -63,7 +61,8 @@ public class PowerOutageController {
                     content = @Content)
     })
     @PostMapping
-    public PowerOutageDTO create(@Valid @RequestBody PowerOutage outage) {
+    public PowerOutageDTO create(@Valid @RequestBody PowerOutageDTO outageDto) {
+        PowerOutage outage = mapper.toEntity(outageDto);
         PowerOutage saved = service.createOutage(outage);
         return mapper.toDto(saved);
     }
@@ -76,8 +75,9 @@ public class PowerOutageController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<PowerOutageDTO> update(@PathVariable Long id, @Valid @RequestBody PowerOutage outage) {
-        return service.updateOutage(id, outage)
+    public ResponseEntity<PowerOutageDTO> update(@PathVariable Long id, @Valid @RequestBody PowerOutageDTO outageDto) {
+        PowerOutage outageData = mapper.toEntity(outageDto);
+        return service.updateOutage(id, outageData)
                 .map(mapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
